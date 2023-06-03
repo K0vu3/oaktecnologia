@@ -39,17 +39,21 @@ const Button = styled.button`
   }
 `;
 
+const Select = styled.select`
+  padding: 5px 10px;
+`;
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const [sortOrder, setSortOrder] = useState('name');
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [sortOrder]);
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/products');
+      const response = await axios.get(`http://localhost:8080/products?sort=${sortOrder}`);
       setProducts(response.data.content);
     } catch (error) {
       console.error(error);
@@ -65,9 +69,21 @@ const ProductList = () => {
     }
   };
 
+  const handleSortOrderChange = (e) => {
+    setSortOrder(e.target.value);
+  };
+
   return (
     <Container>
       <Title>Lista de Produtos</Title>
+      <div>
+        <label>Ordenar por:</label>
+        <Select value={sortOrder} onChange={handleSortOrderChange}>
+          <option value="id">Id</option>
+          <option value="name">Nome</option>
+          <option value="price">Preço</option>
+        </Select>
+      </div>
       <Table>
         <thead>
           <tr>
