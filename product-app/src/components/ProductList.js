@@ -69,6 +69,15 @@ const ProductList = () => {
     }
   };
 
+  // const enableSales = async (id) => {
+  //   try {
+  //     await axios.put(`http://localhost:8080/products/${id}`);
+  //     fetchProducts();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   const handleSortOrderChange = (e) => {
     setSortOrder(e.target.value);
   };
@@ -90,7 +99,7 @@ const ProductList = () => {
             <Th>Nome</Th>
             <Th>Descrição</Th>
             <Th>Preço</Th>
-            <Th>Editar</Th>
+            <Th>Disponível para venda</Th>
             <Th>Deletar</Th>
           </tr>
         </thead>
@@ -101,7 +110,10 @@ const ProductList = () => {
               <Td>{product.description}</Td>
               <Td>{product.price}</Td>
               <Td>
-                <Link to={`/edit/${product.id}`}>Editar</Link>
+                <Select>
+                  <option>Sim</option>
+                  <option>Não</option>
+                </Select>
               </Td>
               <Td>
                 <Button onClick={() => deleteProduct(product.id)}>Deletar</Button>
