@@ -24,7 +24,7 @@ public class ProductService {
 
 
     public Page<ProductListDto> getActiveProducts(Pageable pageable) {
-        return repository.findAllByIsAvailableTrue(pageable).map(ProductListDto::new);
+        return repository.findAllByIsActiveTrue(pageable).map(ProductListDto::new);
     }
 
     public Page<ProductListDto> getAllProducts(Pageable pageable) {
@@ -58,12 +58,13 @@ public class ProductService {
 
     public void delete(Long id) {
         Product product = repository.getReferenceById(id);
-        product.setIsAvailable(false);
+        product.setIsActive(false);
     }
 
-    public Product enable(Long id) {
+    public Product enableSales(Long id) {
         Product product = repository.getReferenceById(id);
-        product.setIsAvailable(true);
+        boolean value = !product.getIsAvailable();
+        product.setIsAvailable(value);
         return product;
     }
 }

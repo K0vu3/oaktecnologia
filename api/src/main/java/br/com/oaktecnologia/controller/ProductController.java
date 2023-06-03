@@ -67,7 +67,7 @@ public class ProductController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity enableProductSales(@PathVariable Long id) {
-        Product product = service.enable(id);
+        Product product = service.enableSales(id);
         return ResponseEntity.ok(new ProductInfoDto(product));
     }
 }
